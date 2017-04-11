@@ -1,0 +1,21 @@
+﻿<link href="Content/Site.css" rel="stylesheet" />
+<div>
+    <span class="main-title"><b>HIS Endpoints</b></span>
+    <br /><br />
+    <div>
+        <input type="text" ng-model="searchString" placeholder="Search for endpoints" class="form-control" />
+    </div>
+    <br /><br />
+    <table class="table table-hover" ng-controller="Orion-His-Endpoints-Controller" style="cursor:pointer;">
+        <tr class="table-header">
+            <th>Method</th>
+            <th>Endpoint</th>
+            <th>Description</th>
+        </tr>
+        <tr ng-repeat="i in items | searchFor:searchString" class="table-content">
+            <td style="color:black;">{{i.method}}</td>
+            <td><a ng-href="{{i.url}}">{{i.endpoint}}</a></td>
+            <td>{{i.description}}</td>
+        </tr>
+    </table>
+</div>

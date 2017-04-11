@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="DocuApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAPI - Docs</title>
+    <link href="Content/Bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/Open Source DLL/SidebarNav/simple-sidebar.css" rel="stylesheet" />
+    <link href="Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/Open Source DLL/Highlight/tomorrow.css" rel="stylesheet" />
+    <script src="Content/Open Source DLL/Highlight/highlight.pack.js"></script>
+    <script src="Scripts/angularJS/angular.min.js"></script>
+    <script src="Content/Open Source DLL/Highlight/angular-highlight.js"></script>
+    <script src="Scripts/angularJS/angular-route.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+    <nav id="nav" class="navbar navbar-static-top visible-xs" role="navigation" style="background-color:#234340;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" style="padding-bottom:30px !important;">
+                    <i class="fa fa-angle-double-down fa-stack-2x" style="color:white;"></i>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right nav-padding-top">
+                    <li><a href="#/overview" style="color:white !important;">Overview</a></li>
+                    <li><a href="#/authentication" style="color:white !important;">Authentication</a></li>
+                </ul>
+            </div>
+    </nav>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+                <li>
+                    <a href="#/overview"><span class="fa-stack fa-lg pull-left"><i class="fa fa-eye fa-stack-1x "></i></span>Overview</a>
+                </li>
+                <li>
+                    <a href="#/authentication"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-lock fa-stack-1x "></i></span>Authentication</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-exchange fa-stack-1x "></i></span>Endpoints</a>
+                    <ul class="nav-pills nav-stacked" style="list-style-type:none;">
+                        <li><a href="#/orion-his-endpoints">HIS</a></li>
+                        <li><a href="#/hr-endpoints">HR</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid xyz">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="collapse navbar-collapse hidden-xs" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <i class="fa fa-angle-double-left fa-stack-2x" aria-hidden="true"></i></button></li>
+                            </ul>
+                        </div>
+                        <br /><br />
+                        <div data-ng-view></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+</body>
+</html>
+
+
+<script src="Scripts/jQuery/jquery-3.1.1.min.js"></script>
+<script src="Scripts/Bootstrap/bootstrap.min.js"></script>
+<script src="Scripts/angularJS/angular-local-storage.js"></script>
+<script src="Content/Open Source DLL/SidebarNav/sidebar_menu.js"></script>
+<script src="Documentation/main.js"></script>
+<script src="Documentation/Controllers/AuthenticationController.js"></script>
+<script src="Documentation/Controllers/EndpointController.js"></script>
+<script src="Documentation/Controllers/OverviewController.js"></script>
+
+<script>
+    $('#bs-example-navbar-collapse-1 li').click(function () {
+        $(this).find('i').toggleClass('fa-angle-double-left fa-angle-double-right')
+    });
+
+    $('#nav button').click(function () {
+        $(this).find('i').toggleClass('fa-angle-double-down fa-angle-double-up')
+    });
+
+    $('.navbar-collapse ul li a').click(function () {
+        $('.navbar-toggle:visible').click();
+    });
+</script>

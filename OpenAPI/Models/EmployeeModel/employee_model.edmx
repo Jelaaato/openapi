@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="employee_model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_nr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="old_employee_id" Type="varchar" MaxLength="100" />
+          <Property Name="display_name" Type="varchar" MaxLength="500" />
+          <Property Name="last_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="middle_name" Type="varchar" MaxLength="200" />
+          <Property Name="common_name" Type="varchar" MaxLength="100" />
+          <Property Name="title" Type="varchar" MaxLength="100" />
+          <Property Name="suffix" Type="varchar" MaxLength="100" />
+          <Property Name="date_of_birth" Type="datetime" Nullable="false" />
+          <Property Name="age" Type="int" />
+          <Property Name="gender" Type="varchar" MaxLength="50" />
+          <Property Name="race" Type="varchar" MaxLength="100" />
+          <Property Name="nationality" Type="varchar" MaxLength="150" />
+          <Property Name="religion" Type="varchar" MaxLength="100" />
+          <Property Name="marital_status" Type="varchar" MaxLength="50" />
+          <Property Name="primary_language" Type="varchar" MaxLength="100" />
+          <Property Name="ethnic_group" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="employee_career_history">
+          <Key>
+            <PropertyRef Name="career_history_id" />
+          </Key>
+          <Property Name="career_history_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_nr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="display_name" Type="varchar" MaxLength="500" />
+          <Property Name="career_history_start_date" Type="datetime" />
+          <Property Name="career_history_end_date" Type="datetime" />
+          <Property Name="career_history_position" Type="varchar" MaxLength="150" />
+          <Property Name="career_duration_in_years" Type="int" />
+          <Property Name="career_duration_in_months" Type="int" />
+        </EntityType>
+        <EntityType Name="employee_education">
+          <Key>
+            <PropertyRef Name="education_id" />
+          </Key>
+          <Property Name="education_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_nr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="display_name" Type="varchar" MaxLength="500" />
+          <Property Name="major" Type="varchar" MaxLength="200" />
+          <Property Name="subject" Type="varchar" MaxLength="200" />
+          <Property Name="dates_attended_from" Type="datetime" />
+          <Property Name="dates_attended_to" Type="datetime" />
+          <Property Name="graduation_date" Type="datetime" />
+          <Property Name="comments" Type="varchar" MaxLength="500" />
+          <Property Name="verified_flag" Type="bit" />
+          <Property Name="verified_date" Type="datetime" />
+          <Property Name="completed_flag" Type="bit" />
+          <Property Name="education_type" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="employee_employment_details">
+          <Key>
+            <PropertyRef Name="employment_details_id" />
+          </Key>
+          <Property Name="employment_details_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_nr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="old_employee_id" Type="varchar" MaxLength="50" />
+          <Property Name="display_name" Type="varchar" MaxLength="500" />
+          <Property Name="hire_date" Type="datetime" />
+          <Property Name="effective_from_date" Type="datetime" />
+          <Property Name="effective_until_date" Type="datetime" />
+          <Property Name="termination_date" Type="datetime" />
+          <Property Name="termination_reason" Type="varchar" MaxLength="200" />
+          <Property Name="occupation" Type="varchar" MaxLength="250" />
+          <Property Name="occupation_status" Type="varchar" MaxLength="200" />
+          <Property Name="occupation_type" Type="varchar" MaxLength="200" />
+          <Property Name="employee_status" Type="varchar" MaxLength="100" />
+          <Property Name="employee_type" Type="varchar" MaxLength="100" />
+          <Property Name="company_code" Type="varchar" MaxLength="100" />
+          <Property Name="company" Type="varchar" MaxLength="150" />
+          <Property Name="job_type" Type="varchar" MaxLength="200" />
+          <Property Name="job_type_level_nr" Type="int" />
+          <Property Name="job_category" Type="varchar" MaxLength="100" />
+          <Property Name="job_title" Type="varchar" MaxLength="200" />
+          <Property Name="job_grade" Type="varchar" MaxLength="100" />
+          <Property Name="job_grade_level_nr" Type="int" />
+          <Property Name="costcentre" Type="varchar" MaxLength="200" />
+          <Property Name="department" Type="varchar" MaxLength="200" />
+          <Property Name="position_status" Type="varchar" MaxLength="150" />
+          <Property Name="employment_reason" Type="varchar" MaxLength="200" />
+          <Property Name="work_hours_per_week" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="employee_privileges">
+          <Key>
+            <PropertyRef Name="privileges_id" />
+          </Key>
+          <Property Name="privileges_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_nr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="old_employee_id" Type="varchar" MaxLength="100" />
+          <Property Name="display_name" Type="varchar" MaxLength="500" />
+          <Property Name="admitting_privilege_flag" Type="bit" />
+          <Property Name="request_patient_record_flag" Type="bit" />
+          <Property Name="special_privileges" Type="varchar" MaxLength="100" />
+          <Property Name="admitting_status" Type="varchar" MaxLength="100" />
+          <Property Name="doctor_status" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_employee_career_history_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_career_history" Type="Self.employee_career_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="employee_career_history">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_education_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_education" Type="Self.employee_education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="employee_education">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_employment_details_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_employment_details" Type="Self.employee_employment_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="employee_employment_details">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_privileges_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_privileges" Type="Self.employee_privileges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="employee_privileges">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="employee_modelStoreContainer">
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_career_history" EntityType="Self.employee_career_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_education" EntityType="Self.employee_education" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_employment_details" EntityType="Self.employee_employment_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_privileges" EntityType="Self.employee_privileges" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_employee_career_history_employee" Association="Self.FK_employee_career_history_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee_career_history" EntitySet="employee_career_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_education_employee" Association="Self.FK_employee_education_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee_education" EntitySet="employee_education" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_employment_details_employee" Association="Self.FK_employee_employment_details_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee_employment_details" EntitySet="employee_employment_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_privileges_employee" Association="Self.FK_employee_privileges_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="employee_privileges" EntitySet="employee_privileges" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="employee_model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_nr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="old_employee_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="display_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="middle_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="common_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="suffix" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="race" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nationality" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="religion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="marital_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="primary_language" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ethnic_group" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee_career_history" Relationship="Self.FK_employee_career_history_employee" FromRole="employee" ToRole="employee_career_history" />
+          <NavigationProperty Name="employee_education" Relationship="Self.FK_employee_education_employee" FromRole="employee" ToRole="employee_education" />
+          <NavigationProperty Name="employee_employment_details" Relationship="Self.FK_employee_employment_details_employee" FromRole="employee" ToRole="employee_employment_details" />
+          <NavigationProperty Name="employee_privileges" Relationship="Self.FK_employee_privileges_employee" FromRole="employee" ToRole="employee_privileges" />
+        </EntityType>
+        <EntityType Name="employee_career_history">
+          <Key>
+            <PropertyRef Name="career_history_id" />
+          </Key>
+          <Property Name="career_history_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_nr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="display_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="career_history_start_date" Type="DateTime" Precision="3" />
+          <Property Name="career_history_end_date" Type="DateTime" Precision="3" />
+          <Property Name="career_history_position" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="career_duration_in_years" Type="Int32" />
+          <Property Name="career_duration_in_months" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_employee_career_history_employee" FromRole="employee_career_history" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="employee_education">
+          <Key>
+            <PropertyRef Name="education_id" />
+          </Key>
+          <Property Name="education_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_nr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="display_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="major" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="subject" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dates_attended_from" Type="DateTime" Precision="3" />
+          <Property Name="dates_attended_to" Type="DateTime" Precision="3" />
+          <Property Name="graduation_date" Type="DateTime" Precision="3" />
+          <Property Name="comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="verified_flag" Type="Boolean" />
+          <Property Name="verified_date" Type="DateTime" Precision="3" />
+          <Property Name="completed_flag" Type="Boolean" />
+          <Property Name="education_type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_employee_education_employee" FromRole="employee_education" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="employee_employment_details">
+          <Key>
+            <PropertyRef Name="employment_details_id" />
+          </Key>
+          <Property Name="employment_details_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_nr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="old_employee_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="display_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="hire_date" Type="DateTime" Precision="3" />
+          <Property Name="effective_from_date" Type="DateTime" Precision="3" />
+          <Property Name="effective_until_date" Type="DateTime" Precision="3" />
+          <Property Name="termination_date" Type="DateTime" Precision="3" />
+          <Property Name="termination_reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="occupation" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="occupation_status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="occupation_type" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="employee_status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="employee_type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="company_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="company" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="job_type" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="job_type_level_nr" Type="Int32" />
+          <Property Name="job_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="job_title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="job_grade" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="job_grade_level_nr" Type="Int32" />
+          <Property Name="costcentre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="position_status" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="employment_reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="work_hours_per_week" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_employee_employment_details_employee" FromRole="employee_employment_details" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="employee_privileges">
+          <Key>
+            <PropertyRef Name="privileges_id" />
+          </Key>
+          <Property Name="privileges_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_id" Type="Guid" Nullable="false" />
+          <Property Name="employee_nr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="old_employee_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="display_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="admitting_privilege_flag" Type="Boolean" />
+          <Property Name="request_patient_record_flag" Type="Boolean" />
+          <Property Name="special_privileges" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="admitting_status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="doctor_status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_employee_privileges_employee" FromRole="employee_privileges" ToRole="employee" />
+        </EntityType>
+        <Association Name="FK_employee_career_history_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_career_history" Type="Self.employee_career_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="employee_career_history">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_education_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_education" Type="Self.employee_education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="employee_education">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_employment_details_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_employment_details" Type="Self.employee_employment_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="employee_employment_details">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_privileges_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="employee_privileges" Type="Self.employee_privileges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="employee_privileges">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="employee_entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="employee_career_history" EntityType="Self.employee_career_history" />
+          <EntitySet Name="employee_education" EntityType="Self.employee_education" />
+          <EntitySet Name="employee_employment_details" EntityType="Self.employee_employment_details" />
+          <EntitySet Name="employee_privileges" EntityType="Self.employee_privileges" />
+          <AssociationSet Name="FK_employee_career_history_employee" Association="Self.FK_employee_career_history_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee_career_history" EntitySet="employee_career_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_education_employee" Association="Self.FK_employee_education_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee_education" EntitySet="employee_education" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_employment_details_employee" Association="Self.FK_employee_employment_details_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee_employment_details" EntitySet="employee_employment_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_privileges_employee" Association="Self.FK_employee_privileges_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="employee_privileges" EntitySet="employee_privileges" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="employee_modelStoreContainer" CdmEntityContainer="employee_entities">
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="employee_model.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="employee_nr" ColumnName="employee_nr" />
+                <ScalarProperty Name="old_employee_id" ColumnName="old_employee_id" />
+                <ScalarProperty Name="display_name" ColumnName="display_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="common_name" ColumnName="common_name" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="race" ColumnName="race" />
+                <ScalarProperty Name="nationality" ColumnName="nationality" />
+                <ScalarProperty Name="religion" ColumnName="religion" />
+                <ScalarProperty Name="marital_status" ColumnName="marital_status" />
+                <ScalarProperty Name="primary_language" ColumnName="primary_language" />
+                <ScalarProperty Name="ethnic_group" ColumnName="ethnic_group" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_career_history">
+            <EntityTypeMapping TypeName="employee_model.employee_career_history">
+              <MappingFragment StoreEntitySet="employee_career_history">
+                <ScalarProperty Name="career_history_id" ColumnName="career_history_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="employee_nr" ColumnName="employee_nr" />
+                <ScalarProperty Name="display_name" ColumnName="display_name" />
+                <ScalarProperty Name="career_history_start_date" ColumnName="career_history_start_date" />
+                <ScalarProperty Name="career_history_end_date" ColumnName="career_history_end_date" />
+                <ScalarProperty Name="career_history_position" ColumnName="career_history_position" />
+                <ScalarProperty Name="career_duration_in_years" ColumnName="career_duration_in_years" />
+                <ScalarProperty Name="career_duration_in_months" ColumnName="career_duration_in_months" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_education">
+            <EntityTypeMapping TypeName="employee_model.employee_education">
+              <MappingFragment StoreEntitySet="employee_education">
+                <ScalarProperty Name="education_id" ColumnName="education_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="employee_nr" ColumnName="employee_nr" />
+                <ScalarProperty Name="display_name" ColumnName="display_name" />
+                <ScalarProperty Name="major" ColumnName="major" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="dates_attended_from" ColumnName="dates_attended_from" />
+                <ScalarProperty Name="dates_attended_to" ColumnName="dates_attended_to" />
+                <ScalarProperty Name="graduation_date" ColumnName="graduation_date" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="verified_flag" ColumnName="verified_flag" />
+                <ScalarProperty Name="verified_date" ColumnName="verified_date" />
+                <ScalarProperty Name="completed_flag" ColumnName="completed_flag" />
+                <ScalarProperty Name="education_type" ColumnName="education_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_employment_details">
+            <EntityTypeMapping TypeName="employee_model.employee_employment_details">
+              <MappingFragment StoreEntitySet="employee_employment_details">
+                <ScalarProperty Name="employment_details_id" ColumnName="employment_details_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="employee_nr" ColumnName="employee_nr" />
+                <ScalarProperty Name="old_employee_id" ColumnName="old_employee_id" />
+                <ScalarProperty Name="display_name" ColumnName="display_name" />
+                <ScalarProperty Name="hire_date" ColumnName="hire_date" />
+                <ScalarProperty Name="effective_from_date" ColumnName="effective_from_date" />
+                <ScalarProperty Name="effective_until_date" ColumnName="effective_until_date" />
+                <ScalarProperty Name="termination_date" ColumnName="termination_date" />
+                <ScalarProperty Name="termination_reason" ColumnName="termination_reason" />
+                <ScalarProperty Name="occupation" ColumnName="occupation" />
+                <ScalarProperty Name="occupation_status" ColumnName="occupation_status" />
+                <ScalarProperty Name="occupation_type" ColumnName="occupation_type" />
+                <ScalarProperty Name="employee_status" ColumnName="employee_status" />
+                <ScalarProperty Name="employee_type" ColumnName="employee_type" />
+                <ScalarProperty Name="company_code" ColumnName="company_code" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="job_type" ColumnName="job_type" />
+                <ScalarProperty Name="job_type_level_nr" ColumnName="job_type_level_nr" />
+                <ScalarProperty Name="job_category" ColumnName="job_category" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+                <ScalarProperty Name="job_grade" ColumnName="job_grade" />
+                <ScalarProperty Name="job_grade_level_nr" ColumnName="job_grade_level_nr" />
+                <ScalarProperty Name="costcentre" ColumnName="costcentre" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="position_status" ColumnName="position_status" />
+                <ScalarProperty Name="employment_reason" ColumnName="employment_reason" />
+                <ScalarProperty Name="work_hours_per_week" ColumnName="work_hours_per_week" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_privileges">
+            <EntityTypeMapping TypeName="employee_model.employee_privileges">
+              <MappingFragment StoreEntitySet="employee_privileges">
+                <ScalarProperty Name="privileges_id" ColumnName="privileges_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="employee_nr" ColumnName="employee_nr" />
+                <ScalarProperty Name="old_employee_id" ColumnName="old_employee_id" />
+                <ScalarProperty Name="display_name" ColumnName="display_name" />
+                <ScalarProperty Name="admitting_privilege_flag" ColumnName="admitting_privilege_flag" />
+                <ScalarProperty Name="request_patient_record_flag" ColumnName="request_patient_record_flag" />
+                <ScalarProperty Name="special_privileges" ColumnName="special_privileges" />
+                <ScalarProperty Name="admitting_status" ColumnName="admitting_status" />
+                <ScalarProperty Name="doctor_status" ColumnName="doctor_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

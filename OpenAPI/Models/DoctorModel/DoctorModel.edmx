@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DoctorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="departments">
+          <Key>
+            <PropertyRef Name="dept_id" />
+          </Key>
+          <Property Name="dept_id" Type="int" Nullable="false" />
+          <Property Name="department_name" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="doctors">
+          <Key>
+            <PropertyRef Name="doctor_id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctor_id" Type="int" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="middle_name" Type="varchar" MaxLength="200" />
+          <Property Name="mob_room" Type="varchar" MaxLength="100" />
+          <Property Name="display_name" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="doctors_contacts">
+          <Key>
+            <PropertyRef Name="contact_id" />
+          </Key>
+          <Property Name="doctor_id" Type="int" Nullable="false" />
+          <Property Name="contact_number" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="contact_type" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="contact_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="doctors_department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctor_id" Type="int" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="department_name" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="doctors_specialization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctor_id" Type="int" Nullable="false" />
+          <Property Name="specialization_id" Type="int" Nullable="false" />
+          <Property Name="specialization_name" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_doctors_contacts_doctors">
+          <End Role="doctors" Type="Self.doctors" Multiplicity="1" />
+          <End Role="doctors_contacts" Type="Self.doctors_contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="doctors">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="doctors_contacts">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_doctors_department_doctors">
+          <End Role="doctors" Type="Self.doctors" Multiplicity="1" />
+          <End Role="doctors_department" Type="Self.doctors_department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="doctors">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="doctors_department">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_doctors_specialization_doctors">
+          <End Role="doctors" Type="Self.doctors" Multiplicity="1" />
+          <End Role="doctors_specialization" Type="Self.doctors_specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="doctors">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="doctors_specialization">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DoctorModelStoreContainer">
+          <EntitySet Name="departments" EntityType="Self.departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doctors" EntityType="Self.doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doctors_contacts" EntityType="Self.doctors_contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doctors_department" EntityType="Self.doctors_department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doctors_specialization" EntityType="Self.doctors_specialization" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_doctors_contacts_doctors" Association="Self.FK_doctors_contacts_doctors">
+            <End Role="doctors" EntitySet="doctors" />
+            <End Role="doctors_contacts" EntitySet="doctors_contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_doctors_department_doctors" Association="Self.FK_doctors_department_doctors">
+            <End Role="doctors" EntitySet="doctors" />
+            <End Role="doctors_department" EntitySet="doctors_department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_doctors_specialization_doctors" Association="Self.FK_doctors_specialization_doctors">
+            <End Role="doctors" EntitySet="doctors" />
+            <End Role="doctors_specialization" EntitySet="doctors_specialization" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DoctorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="dept_id" />
+          </Key>
+          <Property Name="dept_id" Type="Int32" Nullable="false" />
+          <Property Name="department_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="doctor">
+          <Key>
+            <PropertyRef Name="doctor_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctor_id" Type="Int32" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="middle_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="mob_room" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="display_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="doctors_contacts" Relationship="Self.FK_doctors_contacts_doctors" FromRole="doctors" ToRole="doctors_contacts" />
+          <NavigationProperty Name="doctors_department" Relationship="Self.FK_doctors_department_doctors" FromRole="doctors" ToRole="doctors_department" />
+          <NavigationProperty Name="doctors_specialization" Relationship="Self.FK_doctors_specialization_doctors" FromRole="doctors" ToRole="doctors_specialization" />
+        </EntityType>
+        <EntityType Name="doctors_contacts">
+          <Key>
+            <PropertyRef Name="contact_id" />
+          </Key>
+          <Property Name="doctor_id" Type="Int32" Nullable="false" />
+          <Property Name="contact_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact_type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="doctor" Relationship="Self.FK_doctors_contacts_doctors" FromRole="doctors_contacts" ToRole="doctors" />
+        </EntityType>
+        <EntityType Name="doctors_department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctor_id" Type="Int32" Nullable="false" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="department_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="doctor" Relationship="Self.FK_doctors_department_doctors" FromRole="doctors_department" ToRole="doctors" />
+        </EntityType>
+        <EntityType Name="doctors_specialization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctor_id" Type="Int32" Nullable="false" />
+          <Property Name="specialization_id" Type="Int32" Nullable="false" />
+          <Property Name="specialization_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="doctor" Relationship="Self.FK_doctors_specialization_doctors" FromRole="doctors_specialization" ToRole="doctors" />
+        </EntityType>
+        <Association Name="FK_doctors_contacts_doctors">
+          <End Role="doctors" Type="Self.doctor" Multiplicity="1" />
+          <End Role="doctors_contacts" Type="Self.doctors_contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="doctors">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="doctors_contacts">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_doctors_department_doctors">
+          <End Role="doctors" Type="Self.doctor" Multiplicity="1" />
+          <End Role="doctors_department" Type="Self.doctors_department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="doctors">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="doctors_department">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_doctors_specialization_doctors">
+          <End Role="doctors" Type="Self.doctor" Multiplicity="1" />
+          <End Role="doctors_specialization" Type="Self.doctors_specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="doctors">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="doctors_specialization">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="doctor_entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="doctors" EntityType="Self.doctor" />
+          <EntitySet Name="doctors_contacts" EntityType="Self.doctors_contacts" />
+          <EntitySet Name="doctors_department" EntityType="Self.doctors_department" />
+          <EntitySet Name="doctors_specialization" EntityType="Self.doctors_specialization" />
+          <AssociationSet Name="FK_doctors_contacts_doctors" Association="Self.FK_doctors_contacts_doctors">
+            <End Role="doctors" EntitySet="doctors" />
+            <End Role="doctors_contacts" EntitySet="doctors_contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_doctors_department_doctors" Association="Self.FK_doctors_department_doctors">
+            <End Role="doctors" EntitySet="doctors" />
+            <End Role="doctors_department" EntitySet="doctors_department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_doctors_specialization_doctors" Association="Self.FK_doctors_specialization_doctors">
+            <End Role="doctors" EntitySet="doctors" />
+            <End Role="doctors_specialization" EntitySet="doctors_specialization" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DoctorModelStoreContainer" CdmEntityContainer="doctor_entities">
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="DoctorModel.department">
+              <MappingFragment StoreEntitySet="departments">
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="doctors">
+            <EntityTypeMapping TypeName="DoctorModel.doctor">
+              <MappingFragment StoreEntitySet="doctors">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="doctor_id" ColumnName="doctor_id" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="mob_room" ColumnName="mob_room" />
+                <ScalarProperty Name="display_name" ColumnName="display_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="doctors_contacts">
+            <EntityTypeMapping TypeName="DoctorModel.doctors_contacts">
+              <MappingFragment StoreEntitySet="doctors_contacts">
+                <ScalarProperty Name="doctor_id" ColumnName="doctor_id" />
+                <ScalarProperty Name="contact_number" ColumnName="contact_number" />
+                <ScalarProperty Name="contact_type" ColumnName="contact_type" />
+                <ScalarProperty Name="contact_id" ColumnName="contact_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="doctors_department">
+            <EntityTypeMapping TypeName="DoctorModel.doctors_department">
+              <MappingFragment StoreEntitySet="doctors_department">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="doctor_id" ColumnName="doctor_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="doctors_specialization">
+            <EntityTypeMapping TypeName="DoctorModel.doctors_specialization">
+              <MappingFragment StoreEntitySet="doctors_specialization">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="doctor_id" ColumnName="doctor_id" />
+                <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
+                <ScalarProperty Name="specialization_name" ColumnName="specialization_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

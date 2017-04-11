@@ -1,0 +1,188 @@
+﻿@font-face {
+    font-family: century-gothic;
+    src: url("../fonts/CenturyGothic.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: open-sans;
+    src: url("..//fonts/OpenSans/OpenSans-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: raleway;
+    src: url("..//fonts/Raleway/Raleway-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: glyphicon;
+    src: url("..//fonts/glyphicons-halflings-regular.ttf") format('truetype');
+}
+
+/*BACKGROUND*/
+.header-background {
+    background-color:white;
+    height:100vh;
+}
+
+.authentication-background {
+    background-color:white;
+    height:100vh;
+}
+
+.endpoint-background {
+    background-color:white;
+    height:100vh;
+}
+
+/*NAVBAR*/
+.navbar-fixed-left {
+  width: 320px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+}
+
+.navbar-fixed-left .navbar-nav > li {
+  width: 100%;
+  text-align: justify;
+  font-family:raleway;
+  font-size:18px;
+}
+
+.navbar-fixed-left + .container {
+  padding-left: 160px;
+}
+
+.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+  margin-top: -50px;
+  margin-left: 140px;
+}
+
+.navbar-background-color {
+    background-color:#386b66 !important;
+    border-color: #386b66 !important;
+}
+
+/**/
+
+.brand {
+    font-family:raleway;
+    font-size:80px;
+    color:black;
+}
+
+.main-title {
+    font-family:raleway;
+    font-size:36px;
+    color:black;
+}
+
+.sub-title {
+    font-family:raleway;
+    font-size:23px;
+    color:black;
+}
+
+.table-header {
+    background-color:rgba(19,101,87,0.5) !important;
+    font-family:raleway;
+    font-size:16px;
+    color:black;
+}
+
+.table-content {
+    font-family:open-sans;
+    font-size:14px;
+    color:black;
+}
+
+.paragraph_body {
+    font-family:open-sans;
+    font-size:14px;
+    color:black;
+}
+
+.title {
+    font-family:raleway;
+    font-size:20px;
+    color:black;
+}
+
+.description {
+    font-family:raleway;
+    font-size:16px;
+    color:black;
+}
+
+.vertical-position {
+    position:absolute;
+    top:50%;
+    left:60%;
+    transform:translate(-60%,-50%);
+}
+
+.tagline {
+    font-family:raleway;
+    font-size:28px;
+    color:black;
+}
+
+.sub-menu {
+  font-family:raleway;
+  font-size:16px;
+  padding-left:30px;
+}
+
+.note-box {
+    width:100%;
+    height:auto;
+    border-left:2px solid red;
+    background-color:rgba(250,167,25, 0.1);
+    margin:10px 0 10px 0;
+    padding:10px 10px 10px 10px;
+}
+
+/*SIDEBAR*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

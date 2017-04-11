@@ -1,0 +1,72 @@
+﻿<link href="/Content/Site.css" rel="stylesheet" />
+
+<body>
+    <span class="main-title"><b>Authentication</b></span>
+    <br /><br />
+
+    <p class="paragraph_body">
+        <a href="https://oauth.net/" target="_blank">OAuth</a> is the main authentication and authorization framework used for hopprLab's OpenAPI. To know and read more about OAuth, please refer to <a href="https://tools.ietf.org/html/rfc6749" target="_blank">RFC 6749</a>
+        <br />
+    </p>
+
+    <br /><br />
+    <span class="sub-title"><b>Access Token</b></span>
+    <br /><br />
+
+    <p class="paragraph_body">
+        An access token is the credential that can be used to access an API. It is unique to a user and should be stored securely and should be included to every request sent to the server.
+        <br />
+        To retrieve an access token, please refer to the instructions below.
+        <br /><br />
+        <b>1.</b> Send a POST request to the endpoint, <mark>https://hopprlab.com/openapi/token</mark> together with the needed credentials.
+        <br /><br />
+        <div hljs>
+
+            {
+                "grant_type" : "password",
+                "username" : "SampleClient",
+                "password" : "samplepassword",
+                "client_id" : "TestClient",
+                "client_secret" : "TestSecret"
+            }
+        </div>
+        <br /><br /><br />
+        <b>2.</b> Once the request is successful, an Access and Refresh Token will be sent by the authorization server.
+        <br /><br />
+        <div hljs>
+
+            {
+                "access_token" : "27h3DbJST5S2zyD3k_cwsWVZxBxPFtDs5GYlGJsXw54SaDavfx2aEaJRB5ZLIWXRd_iacXJNTpQ55UNjm5Sy4cpjvCb7JmWIT7tnGFymgGgr-w0lGBTURi25aSAyZ__VLHKy1NuiBkxym8djp7NOtfVCnECLRShuqUY1_tt0gQO8bPF-w0SCa7eMfdB7flVu8iMMKlNmiwU_gTb7_k0i5u2xI-w6cu-bMqjIWR05MYtltey53MXZBRKoXjwT7m9y4jXKFjXcbHg-r8GStV3Zfh",
+                "token_type" : "bearer",
+                "expires_in" : 3599,
+                "refresh_token" : "07cb8dd3636042b584b4d47a4c32a970",
+                "client_id" : "TestClient",
+                "username" : "SampleClient",
+                ".issued" : "Fri, 17 Mar 2017 05:50:10 GMT",
+                ".expires" : "Fri, 17 Mar 2017 06:50:10 GMT"
+            }
+        </div>
+        <br /><br /><br />
+        <b>3.</b> The Access Token must be included in the Authorization header for every request that will be sent to the resource server.
+        <br /><br />
+        <div hljs>Authorization      Bearer 27h3DbJST5S2zyD3k_cwsWVZxBxPFtDs5GYlGJsXw54SaDavfx2aEaJRB5ZLIWXRd_iacXJNTpQ55UNjm5Sy4cpjvCb7JmWIT7tnGFymgGgr-w0lGBTURi25aSAyZ__VLHKy1NuiBkxym8djp7NOtfVCnECLR</div>
+        <br /><br /><br />
+        <b>4.</b> Use the Refresh Token to retrieve a new Access Token once it expires.
+        <br /><br />
+        <div hljs>
+
+            {
+                "grant_type" : "refresh_token",
+                "refresh_token" : "07cb8dd3636042b584b4d47a4c32a970",
+                "client_id" : "TestClient",
+                "client_secret" : "TestSecret"
+            }
+        </div>
+    </p>
+    <br /><br />
+
+    <div class="note-box">
+        <span><b>Note</b>: We will be providing the credentials that you will supply for the following required fields, <i>username, password, client_secret</i>, and <i>client_id</i>. Moreover, access token expires after an hour while refresh tokens last for 24 hours and for every request to be sent, <i>client_id</i> and <i>client_secret</i> are required.</span>
+    </div>
+</body>
+    

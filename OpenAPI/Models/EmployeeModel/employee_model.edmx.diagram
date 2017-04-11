@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a8b5ae5e98f744cc89972e8cc6adc5e0" Name="Diagram1">
+        <EntityTypeShape EntityType="employee_model.employee" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="employee_model.employee_career_history" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="employee_model.employee_education" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="employee_model.employee_employment_details" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="employee_model.employee_privileges" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="employee_model.FK_employee_career_history_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="employee_model.FK_employee_education_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="employee_model.FK_employee_employment_details_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="employee_model.FK_employee_privileges_employee" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

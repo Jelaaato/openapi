@@ -1,0 +1,191 @@
+﻿<link href="../../Content/Site.css" rel="stylesheet" />
+
+<body>
+    <span class="main-title"><b>Employee Demographics</b></span>
+    <br /><br />
+    <hr />
+    <span class="sub-title">Endpoint</span>
+    <br /><br />
+    <p class="paragraph_body">
+        <mark>https://hopprlab.com/openapi/getEmployees</mark> is the main endpoint to retrieve employees' demographics.
+    </p>
+    <br /><br /><br />
+    <span class="sub-title">Parameters</span>
+    <br /><br />
+    <table class="table table-hover table-striped" ng-controller="HR-Endpoints-Controller" style="cursor:pointer;">
+        <tr class="table-header">
+            <th>Query Parameter</th>
+            <th>Value</th>
+        </tr>
+        <tr class="table-content">
+            <td>employee_nr</td>
+            <td>Four digit employee number.</td>
+        </tr>
+        <tr class="table-content">
+            <td>name</td>
+            <td>Can either be an employee's first name, middle name or last name.</td>
+        </tr>
+        <tr class="table-content">
+            <td>old_employee_id</td>
+            <td>Employee's ID number.</td>
+        </tr>
+    </table>
+    <br /><br /><br />
+    <span class="sub-title">Response</span>
+    <br /><br />
+    <p class="paragraph_body">
+        A successful request returns an <mark>Http Status Code 200 OK</mark> with the following response body :
+    </p>
+    <br /><br />
+    <div hljs class="hidden-xs">
+
+        {
+            "employee_id": "00000000-0000-0000-0000-000000000000",
+            "employee_nr": "0001",
+            "old_employee_id": "0-00-00-0001",
+            "display_name": "Doe, John",
+            "last_name": "Doe",
+            "first_name": "John",
+            "middle_name": "null",
+            "common_name": null,
+            "title": "Mr.",
+            "suffix": null,
+            "date_of_birth": "1990-01-28T00:00:00.000",
+            "age": 27,
+            "gender": "Male",
+            "race": "Unknown",
+            "nationality": "Philippines",
+            "religion": "Catholic",
+            "marital_status": "Single",
+            "primary_language": "Tagalog",
+            "ethnic_group": "Asian"
+        }
+    </div>
+    <div hljs class="visible-xs">
+
+        {
+        "employee_id": "00000000-0000-0000-0000-000000000000",
+        "employee_nr": "0001",
+        "old_employee_id": "0-00-00-0001",
+        "display_name": "Doe, John",
+        "last_name": "Doe",
+        "first_name": "John",
+        "middle_name": "null",
+        "common_name": null,
+        "title": "Mr.",
+        "suffix": null,
+        "date_of_birth": "1990-01-28T00:00:00.000",
+        "age": 27,
+        "gender": "Male",
+        "race": "Unknown",
+        "nationality": "Philippines",
+        "religion": "Catholic",
+        "marital_status": "Single",
+        "primary_language": "Tagalog",
+        "ethnic_group": "Asian"
+        }
+    </div>
+    <br /><br />
+    <table class="table table-hover table-striped" ng-controller="Orion-His-Endpoints-Controller" style="cursor:pointer;">
+        <tr class="table-header">
+            <th>Key</th>
+            <th>Value Type</th>
+            <th>Description</th>
+        </tr>
+        <tr class="table-content">
+            <td>employee_id</td>
+            <td>uniqueidentifier</td>
+            <td>An id that's unique to every employee.</td>
+        </tr>
+        <tr class="table-content">
+            <td>employee_nr</td>
+            <td>string</td>
+            <td>Four digit employee number that's unique to every employee.</td>
+        </tr>
+        <tr class="table-content">
+            <td>old_employee_id</td>
+            <td>string</td>
+            <td>Employee ID.</td>
+        </tr>
+        <tr class="table-content">
+            <td>display_name</td>
+            <td>string</td>
+            <td>Employee's full name.</td>
+        </tr>
+        <tr class="table-content">
+            <td>last_name</td>
+            <td>string</td>
+            <td>Employee's last name.</td>
+        </tr>
+        <tr class="table-content">
+            <td>first_name_name</td>
+            <td>string</td>
+            <td>Employee's first name.</td>
+        </tr>
+        <tr class="table-content">
+            <td>middle_name</td>
+            <td>string</td>
+            <td>Employee's middle name.</td>
+        </tr>
+        <tr class="table-content">
+            <td>common_name</td>
+            <td>string</td>
+            <td>Employee's common name.</td>
+        </tr>
+        <tr class="table-content">
+            <td>title</td>
+            <td>string</td>
+            <td>Employee's title.</td>
+        </tr>
+        <tr class="table-content">
+            <td>suffix</td>
+            <td>string</td>
+            <td>Employee's name suffix.</td>
+        </tr>
+        <tr class="table-content">
+            <td>date_of_birth</td>
+            <td>Datetime</td>
+            <td>Employee's date of birth.</td>
+        </tr>
+        <tr class="table-content">
+            <td>age</td>
+            <td>int</td>
+            <td>Employee's age.</td>
+        </tr>
+        <tr class="table-content">
+            <td>gender</td>
+            <td>string</td>
+            <td>Employee's gender.</td>
+        </tr>
+        <tr class="table-content">
+            <td>race</td>
+            <td>string</td>
+            <td>Employee's race.</td>
+        </tr>
+        <tr class="table-content">
+            <td>nationality</td>
+            <td>string</td>
+            <td>Employee's nationality.</td>
+        </tr>
+        <tr class="table-content">
+            <td>religion</td>
+            <td>string</td>
+            <td>Employee's religion.</td>
+        </tr>
+        <tr class="table-content">
+            <td>marital_status</td>
+            <td>string</td>
+            <td>Employee's civil status.</td>
+        </tr>
+        <tr class="table-content">
+            <td>primary_language</td>
+            <td>string</td>
+            <td>Employee's primary language.</td>
+        </tr>
+        <tr class="table-content">
+            <td>ethnic_group</td>
+            <td>string</td>
+            <td>Employee's ethnic group.</td>
+        </tr>
+    </table>
+</body>

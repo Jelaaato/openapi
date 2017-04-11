@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UserTypesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IntegrationDB.dbo.validate_patient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="validate_patient">
+          <Key>
+            <PropertyRef Name="hospital_number" />
+            <PropertyRef Name="date_of_birth" />
+          </Key>
+          <Property Name="hospital_number" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IntegrationDB.dbo.validatedoctor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="validatedoctor">
+          <Key>
+            <PropertyRef Name="employee_nr" />
+            <PropertyRef Name="date_of_birth" />
+          </Key>
+          <Property Name="employee_nr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IntegrationDB.dbo.validateemployee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="validateemployee">
+          <Key>
+            <PropertyRef Name="old_employee_id" />
+            <PropertyRef Name="date_of_birth" />
+          </Key>
+          <Property Name="old_employee_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="UserTypesModelStoreContainer">
+          <EntitySet Name="validate_patient" EntityType="Self.validate_patient" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [validate_patient].[hospital_number] AS [hospital_number], 
+    [validate_patient].[date_of_birth] AS [date_of_birth]
+    FROM [dbo].[validate_patient] AS [validate_patient]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="validatedoctor" EntityType="Self.validatedoctor" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [validatedoctor].[employee_nr] AS [employee_nr], 
+    [validatedoctor].[date_of_birth] AS [date_of_birth]
+    FROM [dbo].[validatedoctor] AS [validatedoctor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="validateemployee" EntityType="Self.validateemployee" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [validateemployee].[old_employee_id] AS [old_employee_id], 
+    [validateemployee].[date_of_birth] AS [date_of_birth]
+    FROM [dbo].[validateemployee] AS [validateemployee]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UserTypesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="validate_patient">
+          <Key>
+            <PropertyRef Name="hospital_number" />
+            <PropertyRef Name="date_of_birth" />
+          </Key>
+          <Property Name="hospital_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="validatedoctor">
+          <Key>
+            <PropertyRef Name="employee_nr" />
+            <PropertyRef Name="date_of_birth" />
+          </Key>
+          <Property Name="employee_nr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="validateemployee">
+          <Key>
+            <PropertyRef Name="old_employee_id" />
+            <PropertyRef Name="date_of_birth" />
+          </Key>
+          <Property Name="old_employee_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="UserTypesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="validate_patient" EntityType="Self.validate_patient" />
+          <EntitySet Name="validatedoctors" EntityType="Self.validatedoctor" />
+          <EntitySet Name="validateemployees" EntityType="Self.validateemployee" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UserTypesModelStoreContainer" CdmEntityContainer="UserTypesEntities">
+          <EntitySetMapping Name="validate_patient">
+            <EntityTypeMapping TypeName="UserTypesModel.validate_patient">
+              <MappingFragment StoreEntitySet="validate_patient">
+                <ScalarProperty Name="hospital_number" ColumnName="hospital_number" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="validatedoctors">
+            <EntityTypeMapping TypeName="UserTypesModel.validatedoctor">
+              <MappingFragment StoreEntitySet="validatedoctor">
+                <ScalarProperty Name="employee_nr" ColumnName="employee_nr" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="validateemployees">
+            <EntityTypeMapping TypeName="UserTypesModel.validateemployee">
+              <MappingFragment StoreEntitySet="validateemployee">
+                <ScalarProperty Name="old_employee_id" ColumnName="old_employee_id" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
