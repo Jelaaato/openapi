@@ -28,13 +28,20 @@ namespace OpenAPI.Controllers
             return Ok(new Paging<DoctorsDTO.Doctors>(doctors, pageNo, pageSize, total));
         }
 
+        //[Route("departments")]
+        //public IHttpActionResult GetDepartments(int pageNo = 1, int pageSize = 10)
+        //{
+        //    int skip = (pageNo - 1) * pageSize;
+        //    int total = doc.GetAllDepartments().Count();
+        //    var departments = doc.GetAllDepartments().Skip(skip).Take(pageSize).ToList();
+        //    return Ok(new Paging<department>(departments, pageNo, pageSize, total));
+        //}
+
         [Route("departments")]
         public IHttpActionResult GetDepartments(int pageNo = 1, int pageSize = 10)
         {
-            int skip = (pageNo - 1) * pageSize;
-            int total = doc.GetAllDepartments().Count();
-            var departments = doc.GetAllDepartments().Skip(skip).Take(pageSize).ToList();
-            return Ok(new Paging<department>(departments, pageNo, pageSize, total));
+            var departments = doc.GetAllDepartments().ToList();
+            return Ok(departments);
         }
 
         [Route("info/searchbyname/{search}")]

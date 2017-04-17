@@ -308,6 +308,23 @@
       <DependentUpon>DoctorModel.edmx</DependentUpon>
       <LastGenOutput>DoctorModel.cs</LastGenOutput>
     </Content>
+    <EntityDeploy Include="Models\AuditTrailModel\audittrailmodel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>audittrailmodel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\AuditTrailModel\audittrailmodel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>audittrailmodel.edmx</DependentUpon>
+      <LastGenOutput>audittrailmodel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\AuditTrailModel\audittrailmodel.edmx.diagram">
+      <DependentUpon>audittrailmodel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\AuditTrailModel\audittrailmodel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>audittrailmodel.edmx</DependentUpon>
+      <LastGenOutput>audittrailmodel.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\openapi.pubxml" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\angularJS\angular-route.js" />
@@ -328,6 +345,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuditController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
@@ -338,6 +356,7 @@
     <Compile Include="Helpers\Hasher.cs" />
     <Compile Include="Helpers\Paging.cs" />
     <Compile Include="Methods\API.cs" />
+    <Compile Include="Methods\AuditTrail.cs" />
     <Compile Include="Methods\Doctor.cs" />
     <Compile Include="Methods\Employee.cs" />
     <Compile Include="Methods\Patient.cs" />
@@ -351,6 +370,28 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\CreateClientAndRefreshTokenTables.cs" />
+    <Compile Include="Models\AuditTrailModel\application.cs">
+      <DependentUpon>audittrailmodel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AuditTrailModel\audittrailmodel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>audittrailmodel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AuditTrailModel\audittrailmodel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>audittrailmodel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AuditTrailModel\audittrailmodel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>audittrailmodel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AuditTrailModel\audit_trail.cs">
+      <DependentUpon>audittrailmodel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataTransferObjects\AuditDTO.cs" />
     <Compile Include="Models\DataTransferObjects\DoctorsDTO.cs" />
     <Compile Include="Models\DataTransferObjects\EmployeesDTO.cs" />
     <Compile Include="Models\DataTransferObjects\PatientsDTO.cs" />
