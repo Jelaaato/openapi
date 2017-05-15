@@ -21,7 +21,6 @@ namespace OpenAPI.Models.PatientModel
         public string cause { get; set; }
         public string reaction { get; set; }
         public string reaction_cause_status { get; set; }
-        public Nullable<System.DateTime> created_date_time { get; set; }
     
         public virtual patient patient { get; set; }
     }

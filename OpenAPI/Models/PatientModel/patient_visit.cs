@@ -14,11 +14,6 @@ namespace OpenAPI.Models.PatientModel
     
     public partial class patient_visit
     {
-        public patient_visit()
-        {
-            this.patient_items_used = new HashSet<patient_items_used>();
-        }
-    
         public System.Guid patient_id { get; set; }
         public System.Guid patient_visit_id { get; set; }
         public System.DateTime actual_visit_date_time { get; set; }
@@ -26,6 +21,7 @@ namespace OpenAPI.Models.PatientModel
         public Nullable<System.DateTime> closure_date_time { get; set; }
     
         public virtual patient_deposit_balance patient_deposit_balance { get; set; }
-        public virtual ICollection<patient_items_used> patient_items_used { get; set; }
+        public virtual patient_visit patient_visit1 { get; set; }
+        public virtual patient_visit patient_visit2 { get; set; }
     }
 }

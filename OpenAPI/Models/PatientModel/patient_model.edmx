@@ -17,6 +17,7 @@
           <Property Name="middle_name" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="display_name" Type="varchar" MaxLength="500" />
           <Property Name="date_of_birth" Type="datetime" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
           <Property Name="gender" Type="varchar" MaxLength="50" />
           <Property Name="marital_status" Type="varchar" MaxLength="50" />
           <Property Name="nationality" Type="varchar" MaxLength="150" />
@@ -34,7 +35,6 @@
           <Property Name="cause" Type="varchar" MaxLength="100" />
           <Property Name="reaction" Type="varchar" MaxLength="150" />
           <Property Name="reaction_cause_status" Type="varchar" MaxLength="100" />
-          <Property Name="created_date_time" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'IntegrationDB.dbo.patient_deposit_balance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -48,7 +48,7 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_deposit_balance' does no
         </EntityType>
         <EntityType Name="patient_diagnosis">
           <Key>
-            <PropertyRef Name="patient_visit_id" />
+            <PropertyRef Name="patient_medical_coding_id" />
           </Key>
           <Property Name="patient_visit_id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="patient_id" Type="uniqueidentifier" Nullable="false" />
@@ -72,10 +72,12 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
         <EntityType Name="patient_items_used">
           <Key>
             <PropertyRef Name="patient_id" />
+            <PropertyRef Name="patient_visit_id" />
             <PropertyRef Name="item_name" />
             <PropertyRef Name="amount" />
           </Key>
           <Property Name="patient_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="patient_visit_id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="hospital_number" Type="varchar" MaxLength="10" />
           <Property Name="item_name" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="amount" Type="money" Nullable="false" />
@@ -116,6 +118,7 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <Property Name="hospital_number" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="display_name" Type="varchar" MaxLength="500" />
           <Property Name="previous_surgeries" Type="varchar" MaxLength="600" />
+          <Property Name="creation_date_time" Type="datetime" />
         </EntityType>
         <EntityType Name="patient_visit">
           <Key>
@@ -163,18 +166,6 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_patient_items_used_patient_visit">
-          <End Role="patient_visit" Type="Self.patient_visit" Multiplicity="1" />
-          <End Role="patient_items_used" Type="Self.patient_items_used" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="patient_visit">
-              <PropertyRef Name="patient_id" />
-            </Principal>
-            <Dependent Role="patient_items_used">
-              <PropertyRef Name="patient_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_patient_medications_patient">
           <End Role="patient" Type="Self.patient" Multiplicity="1" />
           <End Role="patient_medications" Type="Self.patient_medications" Multiplicity="*" />
@@ -211,6 +202,18 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_patient_visit_patient_visit">
+          <End Role="patient_visit" Type="Self.patient_visit" Multiplicity="1" />
+          <End Role="patient_visit1" Type="Self.patient_visit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="patient_visit">
+              <PropertyRef Name="patient_id" />
+            </Principal>
+            <Dependent Role="patient_visit1">
+              <PropertyRef Name="patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="patient_modelStoreContainer">
           <EntitySet Name="patient" EntityType="Self.patient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="patient_allergies" EntityType="Self.patient_allergies" Schema="dbo" store:Type="Tables" />
@@ -229,6 +232,7 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <EntitySet Name="patient_items_used" EntityType="Self.patient_items_used" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [patient_items_used].[patient_id] AS [patient_id], 
+    [patient_items_used].[patient_visit_id] AS [patient_visit_id], 
     [patient_items_used].[hospital_number] AS [hospital_number], 
     [patient_items_used].[item_name] AS [item_name], 
     [patient_items_used].[amount] AS [amount]
@@ -246,10 +250,6 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
             <End Role="patient" EntitySet="patient" />
             <End Role="patient_diagnosis" EntitySet="patient_diagnosis" />
           </AssociationSet>
-          <AssociationSet Name="FK_patient_items_used_patient_visit" Association="Self.FK_patient_items_used_patient_visit">
-            <End Role="patient_visit" EntitySet="patient_visit" />
-            <End Role="patient_items_used" EntitySet="patient_items_used" />
-          </AssociationSet>
           <AssociationSet Name="FK_patient_medications_patient" Association="Self.FK_patient_medications_patient">
             <End Role="patient" EntitySet="patient" />
             <End Role="patient_medications" EntitySet="patient_medications" />
@@ -261,6 +261,10 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <AssociationSet Name="FK_patient_previous_surgeries_patient" Association="Self.FK_patient_previous_surgeries_patient">
             <End Role="patient" EntitySet="patient" />
             <End Role="patient_previous_surgeries" EntitySet="patient_previous_surgeries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_patient_visit_patient_visit" Association="Self.FK_patient_visit_patient_visit">
+            <End Role="patient_visit" EntitySet="patient_visit" />
+            <End Role="patient_visit1" EntitySet="patient_visit" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -279,6 +283,7 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <Property Name="middle_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="display_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="age" Type="Int32" Nullable="false" />
           <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="marital_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="nationality" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -301,12 +306,11 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <Property Name="cause" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="reaction" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="reaction_cause_status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="created_date_time" Type="DateTime" Precision="3" />
           <NavigationProperty Name="patient" Relationship="Self.FK_patient_allergies_patient" FromRole="patient_allergies" ToRole="patient" />
         </EntityType>
         <EntityType Name="patient_diagnosis">
           <Key>
-            <PropertyRef Name="patient_visit_id" />
+            <PropertyRef Name="patient_medical_coding_id" />
           </Key>
           <Property Name="patient_visit_id" Type="Guid" Nullable="false" />
           <Property Name="patient_id" Type="Guid" Nullable="false" />
@@ -364,6 +368,7 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <Property Name="hospital_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="display_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="previous_surgeries" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="creation_date_time" Type="DateTime" Precision="3" />
           <NavigationProperty Name="patient" Relationship="Self.FK_patient_previous_surgeries_patient" FromRole="patient_previous_surgeries" ToRole="patient" />
         </EntityType>
         <Association Name="FK_patient_allergies_patient">
@@ -455,15 +460,15 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           </AssociationSet>
           <EntitySet Name="patient_visit" EntityType="patient_model.patient_visit" />
           <EntitySet Name="patient_deposit_balance" EntityType="patient_model.patient_deposit_balance" />
-          <EntitySet Name="patient_items_used" EntityType="patient_model.patient_items_used" />
           <AssociationSet Name="FK_patient_deposit_balance_patient_visit" Association="patient_model.FK_patient_deposit_balance_patient_visit">
             <End Role="patient_visit" EntitySet="patient_visit" />
             <End Role="patient_deposit_balance" EntitySet="patient_deposit_balance" />
           </AssociationSet>
-          <AssociationSet Name="FK_patient_items_used_patient_visit" Association="patient_model.FK_patient_items_used_patient_visit">
+          <AssociationSet Name="FK_patient_visit_patient_visit" Association="patient_model.FK_patient_visit_patient_visit">
             <End Role="patient_visit" EntitySet="patient_visit" />
-            <End Role="patient_items_used" EntitySet="patient_items_used" />
+            <End Role="patient_visit1" EntitySet="patient_visit" />
           </AssociationSet>
+          <EntitySet Name="patient_items_used" EntityType="patient_model.patient_items_used" />
         </EntityContainer>
         <EntityType Name="patient_visit">
           <Key>
@@ -475,7 +480,8 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <Property Name="hospital_number" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="closure_date_time" Type="DateTime" Precision="3" />
           <NavigationProperty Name="patient_deposit_balance" Relationship="patient_model.FK_patient_deposit_balance_patient_visit" FromRole="patient_visit" ToRole="patient_deposit_balance" />
-          <NavigationProperty Name="patient_items_used" Relationship="patient_model.FK_patient_items_used_patient_visit" FromRole="patient_visit" ToRole="patient_items_used" />
+          <NavigationProperty Name="patient_visit1" Relationship="patient_model.FK_patient_visit_patient_visit" FromRole="patient_visit" ToRole="patient_visit1" />
+          <NavigationProperty Name="patient_visit2" Relationship="patient_model.FK_patient_visit_patient_visit" FromRole="patient_visit1" ToRole="patient_visit" />
         </EntityType>
         <EntityType Name="patient_deposit_balance">
           <Key>
@@ -485,18 +491,6 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <Property Name="deposit_amount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="used_amount" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="patient_visit" Relationship="patient_model.FK_patient_deposit_balance_patient_visit" FromRole="patient_deposit_balance" ToRole="patient_visit" />
-        </EntityType>
-        <EntityType Name="patient_items_used">
-          <Key>
-            <PropertyRef Name="patient_id" />
-            <PropertyRef Name="item_name" />
-            <PropertyRef Name="amount" />
-          </Key>
-          <Property Name="patient_id" Type="Guid" Nullable="false" />
-          <Property Name="item_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <NavigationProperty Name="patient_visit" Relationship="patient_model.FK_patient_items_used_patient_visit" FromRole="patient_items_used" ToRole="patient_visit" />
-          <Property Name="hospital_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_patient_deposit_balance_patient_visit">
           <End Type="patient_model.patient_visit" Role="patient_visit" Multiplicity="1" />
@@ -510,18 +504,31 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_patient_items_used_patient_visit">
+        <Association Name="FK_patient_visit_patient_visit">
           <End Type="patient_model.patient_visit" Role="patient_visit" Multiplicity="1" />
-          <End Type="patient_model.patient_items_used" Role="patient_items_used" Multiplicity="*" />
+          <End Type="patient_model.patient_visit" Role="patient_visit1" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="patient_visit">
               <PropertyRef Name="patient_id" />
             </Principal>
-            <Dependent Role="patient_items_used">
+            <Dependent Role="patient_visit1">
               <PropertyRef Name="patient_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="patient_items_used">
+          <Key>
+            <PropertyRef Name="patient_id" />
+            <PropertyRef Name="item_name" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="patient_visit_id" />
+          </Key>
+          <Property Name="patient_id" Type="Guid" Nullable="false" />
+          <Property Name="hospital_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="item_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="patient_visit_id" Type="Guid" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -539,6 +546,7 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
                 <ScalarProperty Name="middle_name" ColumnName="middle_name" />
                 <ScalarProperty Name="display_name" ColumnName="display_name" />
                 <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="age" ColumnName="age" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="marital_status" ColumnName="marital_status" />
                 <ScalarProperty Name="nationality" ColumnName="nationality" />
@@ -557,7 +565,6 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
                 <ScalarProperty Name="cause" ColumnName="cause" />
                 <ScalarProperty Name="reaction" ColumnName="reaction" />
                 <ScalarProperty Name="reaction_cause_status" ColumnName="reaction_cause_status" />
-                <ScalarProperty Name="created_date_time" ColumnName="created_date_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -620,6 +627,7 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
                 <ScalarProperty Name="hospital_number" ColumnName="hospital_number" />
                 <ScalarProperty Name="display_name" ColumnName="display_name" />
                 <ScalarProperty Name="previous_surgeries" ColumnName="previous_surgeries" />
+                <ScalarProperty Name="creation_date_time" ColumnName="creation_date_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -646,9 +654,10 @@ warning 6002: The table/view 'IntegrationDB.dbo.patient_items_used' does not hav
           <EntitySetMapping Name="patient_items_used">
             <EntityTypeMapping TypeName="patient_model.patient_items_used">
               <MappingFragment StoreEntitySet="patient_items_used">
-                <ScalarProperty Name="hospital_number" ColumnName="hospital_number" />
+                <ScalarProperty Name="patient_visit_id" ColumnName="patient_visit_id" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="hospital_number" ColumnName="hospital_number" />
                 <ScalarProperty Name="patient_id" ColumnName="patient_id" />
               </MappingFragment>
             </EntityTypeMapping>

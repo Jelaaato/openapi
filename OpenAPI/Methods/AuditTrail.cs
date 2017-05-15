@@ -26,7 +26,7 @@ namespace OpenAPI.Methods
 
         public IEnumerable<audit_trail> GetLogs()
         {
-            var logs = db.audit_trail.ToList();
+            var logs = db.audit_trail.OrderByDescending(a => a.date_time);
 
             return logs;
         }

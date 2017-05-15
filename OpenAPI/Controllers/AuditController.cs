@@ -154,7 +154,7 @@ namespace OpenAPI.Controllers
                 {
                     int skip = (pageNo - 1) * pageSize;
                     int total = audittrail.GetLogs().Where(a => a.user_id == user_id).Count();
-                    var logs = audittrail.GetLogs().Where(a => a.user_id == user_id).Skip(skip).Take(pageSize);
+                    var logs = audittrail.GetLogs().Where(a => a.user_id == user_id).Skip(skip).Take(pageSize).OrderByDescending(a => a.date_time);
                     return Ok(new Paging<audit_trail>(logs, pageNo, pageSize, total));
                 }
                 else 

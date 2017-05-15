@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
 using OpenAPI.Helpers;
+using OpenAPI.Models.OpenAPIIdentity;
 using OpenAPI.Models.RefreshTokenModel;
 using OpenAPI.Repositories;
 using System;
@@ -10,6 +12,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Security;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
+using System.Net;
+using System.Web.Http;
+using System.Net.Http;
 
 namespace OpenAPI.Providers
 {
@@ -106,7 +115,7 @@ namespace OpenAPI.Providers
                         "client_id", (context.ClientId == null) ? string.Empty : context.ClientId
                     },
                     { 
-                        "UserName", context.UserName
+                        "username", context.UserName
                     }
                 });
 

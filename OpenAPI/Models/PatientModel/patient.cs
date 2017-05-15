@@ -31,6 +31,7 @@ namespace OpenAPI.Models.PatientModel
         public string middle_name { get; set; }
         public string display_name { get; set; }
         public System.DateTime date_of_birth { get; set; }
+        public int age { get; set; }
         public string gender { get; set; }
         public string marital_status { get; set; }
         public string nationality { get; set; }

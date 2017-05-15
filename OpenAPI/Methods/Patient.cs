@@ -34,11 +34,9 @@ namespace OpenAPI.Methods
                                 registration_date = p.registration_date,
                                 patient_allergies = db.patient_allergies.Select(b => new PatientsDTO.PatientAllergiesOnly
                                 {
-                                    patient_adverse_reaction_cause_id = b.patient_adverse_reaction_cause_id,
                                     cause = b.cause,
                                     reaction = b.reaction,
-                                    reaction_cause_status = b.reaction_cause_status,
-                                    created_date_time = b.created_date_time
+                                    reaction_cause_status = b.reaction_cause_status
                                 }),
                                 patient_medications = db.patient_medications.Select(c => new PatientsDTO.PatientMedicationsOnly
                                 {
@@ -102,11 +100,9 @@ namespace OpenAPI.Methods
                                 registration_date = p.registration_date,
                                 patient_allergies = db.patient_allergies.Select(b => new PatientsDTO.PatientAllergiesOnly
                                 {
-                                    patient_adverse_reaction_cause_id = b.patient_adverse_reaction_cause_id,
                                     cause = b.cause,
                                     reaction = b.reaction,
-                                    reaction_cause_status = b.reaction_cause_status,
-                                    created_date_time = b.created_date_time
+                                    reaction_cause_status = b.reaction_cause_status
                                 }),
                                 patient_medications = db.patient_medications.Select(c => new PatientsDTO.PatientMedicationsOnly
                                 {
@@ -197,114 +193,164 @@ namespace OpenAPI.Methods
             return patients;
         }
 
-        public IEnumerable<PatientsDTO.PatientAllergies> GetPatientAllergies()
+        public IEnumerable<PatientsDTO.PatientAllergiesOnly> GetPatientAllergies()
         {
-            var patient_allergies = db.patients.Include("patient_allergies")
-                                      .Select(a => new PatientsDTO.PatientAllergies
-                                      {
-                                          patient_id = a.patient_id,
-                                          hospital_number = a.hospital_number,
-                                          last_name = a.last_name,
-                                          first_name = a.first_name,
-                                          middle_name = a.middle_name,
-                                          display_name = a.display_name,
-                                          patient_allergies = db.patient_allergies.Select(b => new PatientsDTO.PatientAllergiesOnly
-                                          {
-                                              patient_adverse_reaction_cause_id = b.patient_adverse_reaction_cause_id,
-                                              cause = b.cause,
-                                              reaction = b.reaction,
-                                              reaction_cause_status = b.reaction_cause_status,
-                                              created_date_time = b.created_date_time
-                                          })
-                                      }).OrderBy(a => a.display_name);
+            //var patient_allergies = db.patients.Include("patient_allergies")
+            //                          .Select(a => new PatientsDTO.PatientAllergies
+            //                          {
+            //                              patient_id = a.patient_id,
+            //                              hospital_number = a.hospital_number,
+            //                              last_name = a.last_name,
+            //                              first_name = a.first_name,
+            //                              middle_name = a.middle_name,
+            //                              display_name = a.display_name,
+            //                              patient_allergies = db.patient_allergies.Select(b => new PatientsDTO.PatientAllergiesOnly
+            //                              {
+            //                                  patient_id = b.patient_id,
+            //                                  patient_adverse_reaction_cause_id = b.patient_adverse_reaction_cause_id,
+            //                                  cause = b.cause,
+            //                                  reaction = b.reaction,
+            //                                  reaction_cause_status = b.reaction_cause_status
+            //                              })
+            //                          }).OrderBy(a => a.display_name);
+
+            var patient_allergies = db.patient_allergies.Select(a => new PatientsDTO.PatientAllergiesOnly
+                                    {
+                                        hospital_number = a.hospital_number,
+                                        cause = a.cause,
+                                        reaction = a.reaction,
+                                        reaction_cause_status = a.reaction_cause_status
+                                    }).OrderByDescending(a => a.cause);
 
             return patient_allergies;
         }
 
-        public IEnumerable<PatientsDTO.PatientAllergies> GetPatientAllergies(string hn, string name)
+        public IEnumerable<PatientsDTO.PatientAllergiesOnly> GetPatientAllergies(string hn, string name)
         {
-            var patient_allergies = db.patients.Include("patient_allergies")
-                                      .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
-                                      .Select(a => new PatientsDTO.PatientAllergies
-                                      {
-                                          patient_id = a.patient_id,
-                                          hospital_number = a.hospital_number,
-                                          last_name = a.last_name,
-                                          first_name = a.first_name,
-                                          middle_name = a.middle_name,
-                                          display_name = a.display_name,
-                                          patient_allergies = db.patient_allergies.Select(b => new PatientsDTO.PatientAllergiesOnly
-                                          {
-                                              patient_adverse_reaction_cause_id = b.patient_adverse_reaction_cause_id,
-                                              cause = b.cause,
-                                              reaction = b.reaction,
-                                              reaction_cause_status = b.reaction_cause_status,
-                                              created_date_time = b.created_date_time
-                                          })
-                                      }).OrderBy(a => a.display_name);
+            //var patient_allergies = db.patients.Include("patient_allergies")
+            //                          .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+            //                          .Select(a => new PatientsDTO.PatientAllergies
+            //                          {
+            //                              patient_id = a.patient_id,
+            //                              hospital_number = a.hospital_number,
+            //                              last_name = a.last_name,
+            //                              first_name = a.first_name,
+            //                              middle_name = a.middle_name,
+            //                              display_name = a.display_name,
+            //                              patient_allergies = db.patient_allergies.Select(b => new PatientsDTO.PatientAllergiesOnly
+            //                              {
+            //                                  patient_adverse_reaction_cause_id = b.patient_adverse_reaction_cause_id,
+            //                                  cause = b.cause,
+            //                                  reaction = b.reaction,
+            //                                  reaction_cause_status = b.reaction_cause_status
+            //                              })
+            //                          }).OrderBy(a => a.display_name);
+
+            var patient_allergies = db.patient_allergies.Where(a => a.hospital_number == hn || a.display_name.Contains(name)).Select(a => new PatientsDTO.PatientAllergiesOnly
+                                    {
+                                        hospital_number = a.hospital_number,
+                                        cause = a.cause,
+                                        reaction = a.reaction,
+                                        reaction_cause_status = a.reaction_cause_status
+                                    }).OrderByDescending(a => a.cause);
 
             return patient_allergies;
         }
 
-        public IEnumerable<PatientsDTO.PatientMedications> GetPatientMedications()
+        public IEnumerable<PatientsDTO.PatientMedicationsOnly> GetPatientMedications()
         {
-            var patient_medications = db.patients.Include("patient_medications")
-                                        .Select(a => new PatientsDTO.PatientMedications
-                                        {
-                                            patient_id = a.patient_id,
-                                            hospital_number = a.hospital_number,
-                                            last_name = a.last_name,
-                                            first_name = a.first_name,
-                                            middle_name = a.middle_name,
-                                            display_name = a.display_name,
-                                            patient_medications = db.patient_medications.Select(b => new PatientsDTO.PatientMedicationsOnly
-                                            {
-                                                note_id = b.note_id,
-                                                note_date = b.note_date,
-                                                details = b.details,
-                                                active_flag = b.active_flag
-                                            })
-                                        }).OrderBy(a => a.last_name);
+            //var patient_medications = db.patients.Include("patient_medications")
+            //                            .Select(a => new PatientsDTO.PatientMedications
+            //                            {
+            //                                patient_id = a.patient_id,
+            //                                hospital_number = a.hospital_number,
+            //                                last_name = a.last_name,
+            //                                first_name = a.first_name,
+            //                                middle_name = a.middle_name,
+            //                                display_name = a.display_name,
+            //                                patient_medications = db.patient_medications.Select(b => new PatientsDTO.PatientMedicationsOnly
+            //                                {
+            //                                    note_id = b.note_id,
+            //                                    note_date = b.note_date,
+            //                                    details = b.details,
+            //                                    active_flag = b.active_flag
+            //                                })
+            //                            }).OrderBy(a => a.last_name);
+
+            var patient_medications = db.patient_medications.Select(b => new PatientsDTO.PatientMedicationsOnly
+                                    {
+                                        note_id = b.note_id,
+                                        note_date = b.note_date,
+                                        details = b.details,
+                                        active_flag = b.active_flag
+                                    }).OrderByDescending(b => b.note_date);
 
             return patient_medications;
         }
 
-        public IEnumerable<PatientsDTO.PatientMedications> GetPatientMedications(string hn, string name)
+        public IEnumerable<PatientsDTO.PatientMedicationsOnly> GetPatientMedications(string hn, string name)
         {
-            var patient_medications = db.patients.Include("patient_medications")
-                                        .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
-                                        .Select(a => new PatientsDTO.PatientMedications
+            //var patient_medications = db.patients.Include("patient_medications")
+            //                            .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+            //                            .Select(a => new PatientsDTO.PatientMedications
+            //                            {
+            //                                patient_id = a.patient_id,
+            //                                hospital_number = a.hospital_number,
+            //                                last_name = a.last_name,
+            //                                first_name = a.first_name,
+            //                                middle_name = a.middle_name,
+            //                                display_name = a.display_name,
+            //                                patient_medications = db.patient_medications.Select(b => new PatientsDTO.PatientMedicationsOnly
+            //                                {
+            //                                    note_id = b.note_id,
+            //                                    note_date = b.note_date,
+            //                                    details = b.details,
+            //                                    active_flag = b.active_flag
+            //                                })
+            //                            }).OrderBy(a => a.last_name);
+
+            var patient_medications = db.patient_medications.Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+                                        .Select(b => new PatientsDTO.PatientMedicationsOnly
                                         {
-                                            patient_id = a.patient_id,
-                                            hospital_number = a.hospital_number,
-                                            last_name = a.last_name,
-                                            first_name = a.first_name,
-                                            middle_name = a.middle_name,
-                                            display_name = a.display_name,
-                                            patient_medications = db.patient_medications.Select(b => new PatientsDTO.PatientMedicationsOnly
-                                            {
-                                                note_id = b.note_id,
-                                                note_date = b.note_date,
-                                                details = b.details,
-                                                active_flag = b.active_flag
-                                            })
-                                        }).OrderBy(a => a.last_name);
+                                            note_id = b.note_id,
+                                            note_date = b.note_date,
+                                            details = b.details,
+                                            active_flag = b.active_flag
+                                        }).OrderByDescending(b => b.note_date);
 
             return patient_medications;
         }
 
-        public IEnumerable<PatientsDTO.PatientDiagnosis> GetPatientDiagnosis()
+        public IEnumerable<PatientsDTO.PatientDiagnosisOnly> GetPatientDiagnosis()
         {
-            var patient_diagnosis = db.patients.Include("patient_diagnosis")
-                                      .Select(a => new PatientsDTO.PatientDiagnosis
-                                      {
-                                          patient_id = a.patient_id,
-                                          hospital_number = a.hospital_number,
-                                          last_name = a.last_name,
-                                          first_name = a.first_name,
-                                          middle_name = a.middle_name,
-                                          display_name = a.display_name,
-                                          patient_diagnosis = db.patient_diagnosis.Select(b => new PatientsDTO.PatientDiagnosisOnly
+            //var patient_diagnosis = db.patients.Include("patient_diagnosis")
+            //                          .Select(a => new PatientsDTO.PatientDiagnosis
+            //                          {
+            //                              patient_id = a.patient_id,
+            //                              hospital_number = a.hospital_number,
+            //                              last_name = a.last_name,
+            //                              first_name = a.first_name,
+            //                              middle_name = a.middle_name,
+            //                              display_name = a.display_name,
+            //                              patient_diagnosis = db.patient_diagnosis.Select(b => new PatientsDTO.PatientDiagnosisOnly
+            //                              {
+            //                                  patient_medical_coding_id = b.patient_medical_coding_id,
+            //                                  patient_visit_id = b.patient_visit_id,
+            //                                  actual_visit_date_time = b.actual_visit_date_time,
+            //                                  visit_type = b.visit_type,
+            //                                  charge_type = b.charge_type,
+            //                                  coding_system = b.coding_system,
+            //                                  coding_type = b.coding_type,
+            //                                  code = b.code,
+            //                                  diagnosis = b.diagnosis,
+            //                                  primary_flag = b.primary_flag,
+            //                                  active_flag = b.active_flag,
+            //                                  current_visit_diagnostic_flag = b.current_visit_diagnostic_flag,
+            //                                  recorded_date_time = b.recorded_date_time
+            //                              })
+            //                          }).OrderBy(a => a.last_name);
+
+            var patient_diagnosis = db.patient_diagnosis.Select(b => new PatientsDTO.PatientDiagnosisOnly
                                           {
                                               patient_medical_coding_id = b.patient_medical_coding_id,
                                               patient_visit_id = b.patient_visit_id,
@@ -319,57 +365,86 @@ namespace OpenAPI.Methods
                                               active_flag = b.active_flag,
                                               current_visit_diagnostic_flag = b.current_visit_diagnostic_flag,
                                               recorded_date_time = b.recorded_date_time
-                                          })
-                                      }).OrderBy(a => a.last_name);
+                                          }).OrderByDescending(b => b.recorded_date_time);
 
             return patient_diagnosis;
         }
 
-        public IEnumerable<PatientsDTO.PatientDiagnosis> GetPatientDiagnosis(string hn, string name)
+        public IEnumerable<PatientsDTO.PatientDiagnosisOnly> GetPatientDiagnosis(string hn, string name)
         {
-            var patient_diagnosis = db.patients.Include("patient_diagnosis")
-                                      .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
-                                      .Select(a => new PatientsDTO.PatientDiagnosis
-                                      {
-                                          patient_id = a.patient_id,
-                                          hospital_number = a.hospital_number,
-                                          last_name = a.last_name,
-                                          first_name = a.first_name,
-                                          middle_name = a.middle_name,
-                                          display_name = a.display_name,
-                                          patient_diagnosis = db.patient_diagnosis.Select(b => new PatientsDTO.PatientDiagnosisOnly
-                                          {
-                                              patient_medical_coding_id = b.patient_medical_coding_id,
-                                              patient_visit_id = b.patient_visit_id,
-                                              actual_visit_date_time = b.actual_visit_date_time,
-                                              visit_type = b.visit_type,
-                                              charge_type = b.charge_type,
-                                              coding_system = b.coding_system,
-                                              coding_type = b.coding_type,
-                                              code = b.code,
-                                              diagnosis = b.diagnosis,
-                                              primary_flag = b.primary_flag,
-                                              active_flag = b.active_flag,
-                                              current_visit_diagnostic_flag = b.current_visit_diagnostic_flag,
-                                              recorded_date_time = b.recorded_date_time
-                                          })
-                                      }).OrderBy(a => a.last_name);
+            //var patient_diagnosis = db.patients.Include("patient_diagnosis")
+            //                          .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+            //                          .Select(a => new PatientsDTO.PatientDiagnosis
+            //                          {
+            //                              patient_id = a.patient_id,
+            //                              hospital_number = a.hospital_number,
+            //                              last_name = a.last_name,
+            //                              first_name = a.first_name,
+            //                              middle_name = a.middle_name,
+            //                              display_name = a.display_name,
+            //                              patient_diagnosis = db.patient_diagnosis.Select(b => new PatientsDTO.PatientDiagnosisOnly
+            //                              {
+            //                                  patient_medical_coding_id = b.patient_medical_coding_id,
+            //                                  patient_visit_id = b.patient_visit_id,
+            //                                  actual_visit_date_time = b.actual_visit_date_time,
+            //                                  visit_type = b.visit_type,
+            //                                  charge_type = b.charge_type,
+            //                                  coding_system = b.coding_system,
+            //                                  coding_type = b.coding_type,
+            //                                  code = b.code,
+            //                                  diagnosis = b.diagnosis,
+            //                                  primary_flag = b.primary_flag,
+            //                                  active_flag = b.active_flag,
+            //                                  current_visit_diagnostic_flag = b.current_visit_diagnostic_flag,
+            //                                  recorded_date_time = b.recorded_date_time
+            //                              })
+            //                          }).OrderBy(a => a.last_name);
+
+            var patient_diagnosis = db.patient_diagnosis.Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+                                    .Select(b => new PatientsDTO.PatientDiagnosisOnly
+                                    {
+                                        patient_medical_coding_id = b.patient_medical_coding_id,
+                                        patient_visit_id = b.patient_visit_id,
+                                        actual_visit_date_time = b.actual_visit_date_time,
+                                        visit_type = b.visit_type,
+                                        charge_type = b.charge_type,
+                                        coding_system = b.coding_system,
+                                        coding_type = b.coding_type,
+                                        code = b.code,
+                                        diagnosis = b.diagnosis,
+                                        primary_flag = b.primary_flag,
+                                        active_flag = b.active_flag,
+                                        current_visit_diagnostic_flag = b.current_visit_diagnostic_flag,
+                                        recorded_date_time = b.recorded_date_time
+                                    }).OrderByDescending(b => b.recorded_date_time);
 
             return patient_diagnosis;
         }
 
-        public IEnumerable<PatientsDTO.PatientPrevHospitalizations> GetPatientPrevHospitalizations()
+        public IEnumerable<PatientsDTO.PatientPrevHospitalizationsOnly> GetPatientPrevHospitalizations()
         {
-            var patient_prev_hospitalizations = db.patients.Include("patient_previous_hospitalizations")
-                                                  .Select(a => new PatientsDTO.PatientPrevHospitalizations
-                                                  {
-                                                      patient_id = a.patient_id,
-                                                      hospital_number = a.hospital_number,
-                                                      last_name = a.last_name,
-                                                      first_name = a.first_name,
-                                                      middle_name = a.middle_name,
-                                                      display_name = a.display_name,
-                                                      patient_previous_hospitalizations = db.patient_previous_hospitalizations.Select(b => new PatientsDTO.PatientPrevHospitalizationsOnly
+            //var patient_prev_hospitalizations = db.patients.Include("patient_previous_hospitalizations")
+            //                                      .Select(a => new PatientsDTO.PatientPrevHospitalizations
+            //                                      {
+            //                                          patient_id = a.patient_id,
+            //                                          hospital_number = a.hospital_number,
+            //                                          last_name = a.last_name,
+            //                                          first_name = a.first_name,
+            //                                          middle_name = a.middle_name,
+            //                                          display_name = a.display_name,
+            //                                          patient_previous_hospitalizations = db.patient_previous_hospitalizations.Select(b => new PatientsDTO.PatientPrevHospitalizationsOnly
+            //                                          {
+            //                                              patient_visit_id = b.patient_visit_id,
+            //                                              actual_visit_date_time = b.actual_visit_date_time,
+            //                                              closure_date_time = b.closure_date_time,
+            //                                              visit_type_group = b.visit_type_group,
+            //                                              visit_type = b.visit_type,
+            //                                              primary_service = b.primary_service,
+            //                                              charge_type = b.charge_type
+            //                                          })
+            //                                      }).OrderBy(a => a.last_name);
+
+            var patient_prev_hospitalizations = db.patient_previous_hospitalizations.Select(b => new PatientsDTO.PatientPrevHospitalizationsOnly
                                                       {
                                                           patient_visit_id = b.patient_visit_id,
                                                           actual_visit_date_time = b.actual_visit_date_time,
@@ -378,79 +453,103 @@ namespace OpenAPI.Methods
                                                           visit_type = b.visit_type,
                                                           primary_service = b.primary_service,
                                                           charge_type = b.charge_type
-                                                      })
-                                                  }).OrderBy(a => a.last_name);
+                                                      }).OrderByDescending(b => b.actual_visit_date_time);
+            return patient_prev_hospitalizations;
+        }
+
+        public IEnumerable<PatientsDTO.PatientPrevHospitalizationsOnly> GetPatientPrevHospitalizations(string hn, string name)
+        {
+            //var patient_prev_hospitalizations = db.patients.Include("patient_previous_hospitalizations")
+            //                                      .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+            //                                      .Select(a => new PatientsDTO.PatientPrevHospitalizations
+            //                                      {
+            //                                          patient_id = a.patient_id,
+            //                                          hospital_number = a.hospital_number,
+            //                                          last_name = a.last_name,
+            //                                          first_name = a.first_name,
+            //                                          middle_name = a.middle_name,
+            //                                          display_name = a.display_name,
+            //                                          patient_previous_hospitalizations = db.patient_previous_hospitalizations.Select(b => new PatientsDTO.PatientPrevHospitalizationsOnly
+            //                                          {
+            //                                              patient_visit_id = b.patient_visit_id,
+            //                                              actual_visit_date_time = b.actual_visit_date_time,
+            //                                              closure_date_time = b.closure_date_time,
+            //                                              visit_type_group = b.visit_type_group,
+            //                                              visit_type = b.visit_type,
+            //                                              primary_service = b.primary_service,
+            //                                              charge_type = b.charge_type
+            //                                          })
+            //                                      }).OrderBy(a => a.last_name);
+
+            var patient_prev_hospitalizations = db.patient_previous_hospitalizations.Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+                                                .Select(b => new PatientsDTO.PatientPrevHospitalizationsOnly
+                                                {
+                                                    patient_visit_id = b.patient_visit_id,
+                                                    actual_visit_date_time = b.actual_visit_date_time,
+                                                    closure_date_time = b.closure_date_time,
+                                                    visit_type_group = b.visit_type_group,
+                                                    visit_type = b.visit_type,
+                                                    primary_service = b.primary_service,
+                                                    charge_type = b.charge_type
+                                                }).OrderByDescending(b => b.actual_visit_date_time);
 
             return patient_prev_hospitalizations;
         }
 
-        public IEnumerable<PatientsDTO.PatientPrevHospitalizations> GetPatientPrevHospitalizations(string hn, string name)
+        public IEnumerable<PatientsDTO.PatientPrevSurgeriesOnly> GetPatientPrevSurgeries()
         {
-            var patient_prev_hospitalizations = db.patients.Include("patient_previous_hospitalizations")
-                                                  .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
-                                                  .Select(a => new PatientsDTO.PatientPrevHospitalizations
-                                                  {
-                                                      patient_id = a.patient_id,
-                                                      hospital_number = a.hospital_number,
-                                                      last_name = a.last_name,
-                                                      first_name = a.first_name,
-                                                      middle_name = a.middle_name,
-                                                      display_name = a.display_name,
-                                                      patient_previous_hospitalizations = db.patient_previous_hospitalizations.Select(b => new PatientsDTO.PatientPrevHospitalizationsOnly
-                                                      {
-                                                          patient_visit_id = b.patient_visit_id,
-                                                          actual_visit_date_time = b.actual_visit_date_time,
-                                                          closure_date_time = b.closure_date_time,
-                                                          visit_type_group = b.visit_type_group,
-                                                          visit_type = b.visit_type,
-                                                          primary_service = b.primary_service,
-                                                          charge_type = b.charge_type
-                                                      })
-                                                  }).OrderBy(a => a.last_name);
-
-            return patient_prev_hospitalizations;
-        }
-
-        public IEnumerable<PatientsDTO.PatientPrevSurgeries> GetPatientPrevSurgeries()
-        {
-            var patient_prev_surgeries = db.patients.Include("patient_previous_surgeries")
-                                           .Select(a => new PatientsDTO.PatientPrevSurgeries
-                                           {
-                                               patient_id = a.patient_id,
-                                               hospital_number = a.hospital_number,
-                                               last_name = a.last_name,
-                                               first_name = a.first_name,
-                                               middle_name = a.middle_name,
-                                               display_name = a.display_name,
-                                               patient_previous_surgeries = db.patient_previous_surgeries.Select(b => new PatientsDTO.PatientPrevSurgeriesOnly
-                                               {
-                                                   previous_surgeries = b.previous_surgeries
-                                               })
-                                           }).OrderBy(a => a.last_name);
+            //var patient_prev_surgeries = db.patients.Include("patient_previous_surgeries")
+            //                               .Select(a => new PatientsDTO.PatientPrevSurgeries
+            //                               {
+            //                                   patient_id = a.patient_id,
+            //                                   hospital_number = a.hospital_number,
+            //                                   last_name = a.last_name,
+            //                                   first_name = a.first_name,
+            //                                   middle_name = a.middle_name,
+            //                                   display_name = a.display_name,
+            //                                   patient_previous_surgeries = db.patient_previous_surgeries.Select(b => new PatientsDTO.PatientPrevSurgeriesOnly
+            //                                   {
+            //                                       previous_surgeries = b.previous_surgeries
+            //                                   })
+            //                               }).OrderBy(a => a.last_name);
+            var patient_prev_surgeries = db.patient_previous_surgeries.Select(b => new PatientsDTO.PatientPrevSurgeriesOnly
+                                              {
+                                                  previous_surgeries = b.previous_surgeries
+                                              }).OrderBy(b => b.previous_surgeries);
+                                           
 
             return patient_prev_surgeries;
         }
 
-        public IEnumerable<PatientsDTO.PatientPrevSurgeries> GetPatientPrevSurgeries(string hn, string name)
+        public IEnumerable<PatientsDTO.PatientPrevSurgeriesOnly> GetPatientPrevSurgeries(string hn, string name)
         {
-            var patient_prev_surgeries = db.patients.Include("patient_previous_surgeries")
-                                           .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
-                                           .Select(a => new PatientsDTO.PatientPrevSurgeries
-                                           {
-                                               patient_id = a.patient_id,
-                                               hospital_number = a.hospital_number,
-                                               last_name = a.last_name,
-                                               first_name = a.first_name,
-                                               middle_name = a.middle_name,
-                                               display_name = a.display_name,
-                                               patient_previous_surgeries = db.patient_previous_surgeries.Select(b => new PatientsDTO.PatientPrevSurgeriesOnly
-                                               {
-                                                   previous_surgeries = b.previous_surgeries
-                                               })
-                                           }).OrderBy(a => a.last_name);
+            //var patient_prev_surgeries = db.patients.Include("patient_previous_surgeries")
+            //                               .Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+            //                               .Select(a => new PatientsDTO.PatientPrevSurgeries
+            //                               {
+            //                                   patient_id = a.patient_id,
+            //                                   hospital_number = a.hospital_number,
+            //                                   last_name = a.last_name,
+            //                                   first_name = a.first_name,
+            //                                   middle_name = a.middle_name,
+            //                                   display_name = a.display_name,
+            //                                   patient_previous_surgeries = db.patient_previous_surgeries.Select(b => new PatientsDTO.PatientPrevSurgeriesOnly
+            //                                   {
+            //                                       previous_surgeries = b.previous_surgeries
+            //                                   })
+            //                               }).OrderBy(a => a.last_name);
+
+            var patient_prev_surgeries = db.patient_previous_surgeries.Where(a => a.hospital_number == hn || a.display_name.Contains(name))
+                                        .Select(b => new PatientsDTO.PatientPrevSurgeriesOnly
+                                        {
+                                            previous_surgeries = b.previous_surgeries
+                                        }).OrderBy(b => b.previous_surgeries);
+
 
             return patient_prev_surgeries;
         }
+
+
 
         public IEnumerable<PatientsDTO.PatientBill> GetPatientBill(string hn)
         {
@@ -478,9 +577,9 @@ namespace OpenAPI.Methods
         private decimal? GetTotalDeposit(string hn)
         {
             var id = (from a in db.patient_deposit_balance
-                          join b in db.patient_visit on a.customer_id equals b.patient_id
-                          where b.hospital_number == hn
-                          select b.patient_id).First();
+                      join b in db.patient_visit on a.customer_id equals b.patient_id
+                      where b.hospital_number == hn
+                      select b.patient_id).First();
 
             var deposit = db.patient_deposit_balance.Where(a => a.customer_id == id).Select(a => a.deposit_amount).Sum();
             var used_amount = db.patient_deposit_balance.Where(a => a.customer_id == id).Select(a => a.used_amount).Sum();

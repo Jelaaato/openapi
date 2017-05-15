@@ -61,11 +61,11 @@ namespace OpenAPI.Models.DataTransferObjects
 
         public class PatientAllergiesOnly
         {
-            public System.Guid patient_adverse_reaction_cause_id { get; set; }
+            public string hospital_number { get; set; }
+            //public System.Guid patient_adverse_reaction_cause_id { get; set; }
             public string cause { get; set; }
             public string reaction { get; set; }
             public string reaction_cause_status { get; set; }
-            public Nullable<System.DateTime> created_date_time { get; set; }
         }
 
         public class PatientDiagnosis

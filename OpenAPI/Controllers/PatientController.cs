@@ -42,7 +42,7 @@ namespace OpenAPI.Controllers
         //    return Ok(patients);
         //}
 
-        [Authorize]
+        //[Authorize]
         [Route("getPatients")]
         public IHttpActionResult GetPatients(string hn = null, string name = null)
         {
@@ -65,7 +65,7 @@ namespace OpenAPI.Controllers
         //    return Ok(patient_allergies);
         //}
 
-        [Authorize]
+        //[Authorize]
         [Route("getPatientAllergies")]
         public IHttpActionResult GetPatientAllergies(string hn = null, string name = null)
         {
@@ -88,6 +88,7 @@ namespace OpenAPI.Controllers
         //    return Ok(patient_medications);
         //}
 
+        //[Authorize]
         [Authorize]
         [Route("getPatientMedications")]
         public IHttpActionResult GetPatientMedications(string hn = null, string name = null)
@@ -111,6 +112,7 @@ namespace OpenAPI.Controllers
         //    return Ok(patient_diagnosis);
         //}
 
+        //[Authorize]
         [Authorize]
         [Route("getPatientDiagnosis")]
         public IHttpActionResult GetPatientDiagnosis(string hn = null, string name = null)
@@ -173,7 +175,7 @@ namespace OpenAPI.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("getPatientBill/{hn}")]
         public IHttpActionResult GetPatientBill(string hn)
         {
@@ -203,7 +205,7 @@ namespace OpenAPI.Controllers
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, String.Format("An error has occured : {0}", e.Message)));
                 }
             }
-            else 
+            else
             {
                 return BadRequest(ModelState);
             }

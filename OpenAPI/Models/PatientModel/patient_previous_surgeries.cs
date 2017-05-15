@@ -19,6 +19,7 @@ namespace OpenAPI.Models.PatientModel
         public string hospital_number { get; set; }
         public string display_name { get; set; }
         public string previous_surgeries { get; set; }
+        public Nullable<System.DateTime> creation_date_time { get; set; }
     
         public virtual patient patient { get; set; }
     }

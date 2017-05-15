@@ -15,10 +15,9 @@ namespace OpenAPI.Models.PatientModel
     public partial class patient_items_used
     {
         public System.Guid patient_id { get; set; }
+        public string hospital_number { get; set; }
         public string item_name { get; set; }
         public decimal amount { get; set; }
-        public string hospital_number { get; set; }
-    
-        public virtual patient_visit patient_visit { get; set; }
+        public System.Guid patient_visit_id { get; set; }
     }
 }

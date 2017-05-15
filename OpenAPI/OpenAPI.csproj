@@ -257,23 +257,6 @@
       <DependentUpon>employee_model.edmx</DependentUpon>
       <LastGenOutput>employee_model.cs</LastGenOutput>
     </Content>
-    <EntityDeploy Include="Models\PatientModel\patient_model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>patient_model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\PatientModel\patient_model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>patient_model.edmx</DependentUpon>
-      <LastGenOutput>patient_model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\PatientModel\patient_model.edmx.diagram">
-      <DependentUpon>patient_model.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\PatientModel\patient_model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>patient_model.edmx</DependentUpon>
-      <LastGenOutput>patient_model.cs</LastGenOutput>
-    </Content>
     <EntityDeploy Include="Models\ValidationModel\UserTypesModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UserTypesModel.Designer.cs</LastGenOutput>
@@ -325,6 +308,23 @@
       <DependentUpon>audittrailmodel.edmx</DependentUpon>
       <LastGenOutput>audittrailmodel.cs</LastGenOutput>
     </Content>
+    <EntityDeploy Include="Models\PatientModel\patient_model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>patient_model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PatientModel\patient_model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>patient_model.edmx</DependentUpon>
+      <LastGenOutput>patient_model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PatientModel\patient_model.edmx.diagram">
+      <DependentUpon>patient_model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\PatientModel\patient_model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>patient_model.edmx</DependentUpon>
+      <LastGenOutput>patient_model.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\openapi.pubxml" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\angularJS\angular-route.js" />
@@ -354,6 +354,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Hasher.cs" />
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Helpers\Paging.cs" />
     <Compile Include="Methods\API.cs" />
     <Compile Include="Methods\AuditTrail.cs" />
@@ -455,8 +456,10 @@
     <Compile Include="Models\EmployeeModel\employee_privileges.cs">
       <DependentUpon>employee_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OpenAPIIdentityModel\ForgotPasswordModel.cs" />
     <Compile Include="Models\OpenAPIIdentityModel\OpenAPIAuthenticationContext.cs" />
     <Compile Include="Models\OpenAPIIdentityModel\RegisterUserModel.cs" />
+    <Compile Include="Models\OpenAPIIdentityModel\ResetPasswordModel.cs" />
     <Compile Include="Models\OpenAPIIdentityModel\roles.cs" />
     <Compile Include="Models\OpenAPIIdentityModel\RolesManager.cs" />
     <Compile Include="Models\OpenAPIIdentityModel\UserModel.cs" />
